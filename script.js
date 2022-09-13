@@ -32,7 +32,7 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-//** learn more scrolling */
+//**+ learn more scrolling */
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
@@ -42,38 +42,67 @@ btnScrollTo.addEventListener('click', (_e) => {
     // console.log('current scroll', window.pagexoffset, window.pageyoffset);
     // console.log('height/width vp:' ,docuemnt.docuemntElement.clientHeight, document.docuemntElement.clientWidth);
 
-    //*? not smooth */
+    //*' not smooth */
     // window.scrollTo(
     //     s1coords.left + window.pageXOffset,
     //     s1coords.top + window.pageYOffset,
     // );
-    //**? adding smooth behavior */
+    //**' adding smooth behavior */
     // window.scrollTo({
     //     left: s1coords.left + window.pageXOffset,
     //     top: s1coords.top + window.pageYOffset,
     //     behavior: 'smooth',
     // });
 
-    //**? mordern JS */
+    //**' mordern JS */
     section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-const randomInt = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
+//**- page navigation */
 
-const randonColor = () =>
-    `rbg(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+// document.querySelectorAll('nav__link').forEach((el) =>
+//     el.addEventListener('click', (e) => {
+//         e.preventDefault();
+//         //**? smooth is not working */
+//         const id = this.getAttribute('href');
+//         console.log(this);
+//         document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//     }),
+// );
 
-document.querySelector('.nav__link').addEventListener('click', e =>{
-  this.style.backgrondColor = randonColor;
+//**. event delegation */
+/**
+ *.1  add event listener to common parent el
+ * .2 determin what el originated the event
+ */
 
-  //** */ e.stopPropagation(); stop bubbling, parent elements wont be reached 
-})
+document.querySelector('.nav__links').addEventListener('click', (e) => {
+    e.preventDefault();
 
-document.querySelector('.nav__links').addEventListener('click', e =>{
-  this.style.backgrondColor = randonColor;
-})
+    //** matching strategy */
+    if (e.target.classList.contains('nav__link')) {
+        const id = e.target.getAttribute('href');
+        document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    }
+});
 
-document.querySelector('.nav').addEventListener('click', e =>{
-  this.style.backgrondColor = randonColor;
-})
+//**+ event propation */
+// const randomInt = (min, max) =>
+//     Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randonColor = () =>
+//     `rbg(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// document.querySelector('.nav__link').addEventListener('click', e =>{
+//   this.style.backgrondColor = randonColor;
+
+//   //** */ e.stopPropagation(); stop bubbling, parent elements wont be reached
+// })
+
+// document.querySelector('.nav__links').addEventListener('click', e =>{
+//   this.style.backgrondColor = randonColor;
+// })
+
+// document.querySelector('.nav').addEventListener('click', e =>{
+//   this.style.backgrondColor = randonColor;
+// })
