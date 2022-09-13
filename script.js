@@ -86,7 +86,51 @@ document.querySelector('.nav__links').addEventListener('click', (e) => {
     }
 });
 
-//**+ event propation */
+//**- DOM traversing */
+const h1 = document.querySelector('.h1');
+/** going downwards
+ *+h1.querySelectorAll('.hightlight')
+ *+ h1.childNodes
+ *+ h1.children HTMLCollection, update in real time
+ *+ h1.firstElementChild.style.color
+ *+ h1.lastElementChild
+ * /
+
+/** going upwards 
+ *+ hi.partentNode
+ *+ h1.parentElement
+ *+ hi.closest('.header').style.backgrondColor  closest ≠ querySelector
+ */
+
+/** siblings only direct siblings
+ *+ h1.previousElementSibling
+ *+ h1.nextElementSibling
+ *+ h1.previousSibling
+ *+ h1.nextSibling
+ *
+ */
+
+//**- tabs comp */
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContent.addEventListener('click', (e) => {
+    const clicked = e.target.closet('.operations__tab');
+    //** guard clause */
+    if (!clicked) return;
+    tabs.forEach((tab) => tab.classList.remove('operations__tab--active'));
+    clicked.classList.add('operations__tab--active');
+    tabsContent.forEach((tab) =>
+        tab.classList.remove('operations__tab--active'),
+    );
+
+    document
+        .querySelector(`.operations__content--${clicked.data.tab}`)
+        .classList.add('operations__content--active');
+});
+
+//**+ event propagation */
 // const randomInt = (min, max) =>
 //     Math.floor(Math.random() * (max - min + 1) + min);
 
