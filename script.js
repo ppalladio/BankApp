@@ -54,7 +54,26 @@ btnScrollTo.addEventListener('click', (_e) => {
     //     behavior: 'smooth',
     // });
 
-
     //**? mordern JS */
-    section1.scrollIntoView({behavior:'smooth'});
+    section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+const randomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
+
+const randonColor = () =>
+    `rbg(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+document.querySelector('.nav__link').addEventListener('click', e =>{
+  this.style.backgrondColor = randonColor;
+
+  //** */ e.stopPropagation(); stop bubbling, parent elements wont be reached 
+})
+
+document.querySelector('.nav__links').addEventListener('click', e =>{
+  this.style.backgrondColor = randonColor;
+})
+
+document.querySelector('.nav').addEventListener('click', e =>{
+  this.style.backgrondColor = randonColor;
+})
