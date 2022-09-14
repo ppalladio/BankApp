@@ -155,16 +155,55 @@ nav.addEventListener('mouseout', mouseover.bind(1));
 
 //- sticky nav
 
-//+ method no1, scroll event fires all the time and its not efficient.
-const sec1InitalCood = section1.getBoundingClientRect().top;
-console.log(sec1InitalCood);
-window.addEventListener('scroll', (_e) => {
-    if (window.scrollY > sec1InitalCood) {
+//. method no1, scroll event fires all the time and its not efficient.
+
+// const sec1InitalCood = section1.getBoundingClientRect().top;
+// console.log(sec1InitalCood);
+// window.addEventListener('scroll', (_e) => {
+//     if (window.scrollY > sec1InitalCood) {
+//         nav.classList.add('sticky');
+//     } else {
+//         nav.classList.remove('sticky');
+//     }
+// });
+
+//. method no2 intersectionobserver API */
+// const obsCallback = (entries, observer) => {
+//     entries.forEach((entry) => console.log(entry));
+
+// }
+
+/**
+ * : threshold \% of the defined section moved in/out of the viewport(in this case is the root, null),
+ * #when set to 0, will fire as soon as the section enters/leaves the viewport, 1 only fires when the whole section is in the viewport,
+ * #0.1, which is 10% can be 10% scrolling down into the section(isIntersecting = true) or scrolling up out of the section(isIntersecting = false), which means scrolling from 10% position up to the top of the section.
+ * #threshold can be an array which means multiple fire points.
+ * #rootmargin unit has to be in px and has to be a string, negative value means the will fire before the -x px threshold is reached and vice versa， only visual margin.
+ */
+// const obsOptions ={
+//     root:null,
+//     threshold:0.1
+// }
+
+// const observer = new IntersectionObserver(obsCallback,obsOptions)
+// observer.observe(section1)
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = (entries) => {
+    const [entry] = entries;
+    if (!entry.isIntersecting) {
         nav.classList.add('sticky');
     } else {
         nav.classList.remove('sticky');
     }
+};
+const headerObserver = new IntersectionObserver(stickyNav, {
+    root: null,
+    threshold: 0,
+    rootMargin: `-${navHeight}px`,
 });
+headerObserver.observe(header);
 
 //**+ event propagation */
 // const randomInt = (min, max) =>
