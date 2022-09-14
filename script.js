@@ -135,7 +135,8 @@ tabsContainer.addEventListener('click', (e) => {
 //**- menu fade  */
 //*!
 const nav = document.querySelector('.nav');
-const mouseover = (e) => {
+function mouseover(e) {
+    //**! arraw function dont have 'this' keyword */
     if (e.target.classList.contains('nav__link')) {
         const link = e.target;
         const sliblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -147,7 +148,7 @@ const mouseover = (e) => {
         });
         logo.style.opacity = this;
     }
-};
+}
 
 nav.addEventListener('mouseover', mouseover.bind(0.5));
 
@@ -175,10 +176,10 @@ nav.addEventListener('mouseout', mouseover.bind(1));
 
 /**
  * : threshold \% of the defined section moved in/out of the viewport(in this case is the root, null),
- * #when set to 0, will fire as soon as the section enters/leaves the viewport, 1 only fires when the whole section is in the viewport,
- * #0.1, which is 10% can be 10% scrolling down into the section(isIntersecting = true) or scrolling up out of the section(isIntersecting = false), which means scrolling from 10% position up to the top of the section.
- * #threshold can be an array which means multiple fire points.
- * #rootmargin unit has to be in px and has to be a string, negative value means the will fire before the -x px threshold is reached and vice versa， only visual margin.
+ * # when set to 0, will fire as soon as the section enters/leaves the viewport, 1 only fires when the whole section is in the viewport,
+ * # 0.1, which is 10% can be 10% scrolling down into the section(isIntersecting = true) or scrolling up out of the section(isIntersecting = false), which means scrolling from 10% position up to the top of the section.
+ * # threshold can be an array which means multiple fire points.
+ * # rootmargin unit has to be in px and has to be a string, negative value means the will fire before the -x px threshold is reached and vice versa， only visual margin.
  */
 // const obsOptions ={
 //     root:null,
@@ -204,6 +205,25 @@ const headerObserver = new IntersectionObserver(stickyNav, {
     rootMargin: `-${navHeight}px`,
 });
 headerObserver.observe(header);
+
+//- Reveal section
+const allSection = document.querySelectorAll('.section');
+
+const revealSection = (entries, _observer) => {
+    const [entry] = entries;
+    if (!entry.isIntersecting) return;
+    entry.target.classList.remove('section--hidden');
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+    root: null,
+    threshold: 0.15,
+});
+
+allSection.forEach(function (sec) {
+    sectionObserver.observe(sec);
+    sec.classList.add('section--hidden');
+});
 
 //**+ event propagation */
 // const randomInt = (min, max) =>
