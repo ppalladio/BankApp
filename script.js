@@ -153,24 +153,18 @@ nav.addEventListener('mouseover', mouseover.bind(0.5));
 
 nav.addEventListener('mouseout', mouseover.bind(1));
 
-
 //- sticky nav
 
-window.addEventListener('scroll', (_e) =>{
-    
-})
-
-
-
-
-
-
-
-
-
-
-
-
+//+ method no1, scroll event fires all the time and its not efficient.
+const sec1InitalCood = section1.getBoundingClientRect().top;
+console.log(sec1InitalCood);
+window.addEventListener('scroll', (_e) => {
+    if (window.scrollY > sec1InitalCood) {
+        nav.classList.add('sticky');
+    } else {
+        nav.classList.remove('sticky');
+    }
+});
 
 //**+ event propagation */
 // const randomInt = (min, max) =>
