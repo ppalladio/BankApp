@@ -225,7 +225,30 @@ allSection.forEach(function (sec) {
     sec.classList.add('section--hidden');
 });
 
-//**+ event propagation */
+// - lazy loading img
+
+const lazyImgs = document.querySelectorAll('img[data-src]');
+
+const loadImg = (entries, observer) => {
+    const [entry] = entries;
+
+    if (!entry.isIntersecting) return;
+    entry.target.src = entry.target.dataset.src;
+    entry.target.addEventListener('load', (_e) => {
+        //** better remove the filter after the high resolution pic has been loaded */
+        entry.target.classList.remove('lazy-img');
+    });
+    observer.unobserver(entry.target);
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+    root: null,
+    threshold: 0,
+    rootMargin: '200px',
+});
+
+lazyImgs.forEach((img) => imgObserver.observe(img));
+
+//**: event propagation */
 // const randomInt = (min, max) =>
 //     Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -235,7 +258,7 @@ allSection.forEach(function (sec) {
 // document.querySelector('.nav__link').addEventListener('click', e =>{
 //   this.style.backgrondColor = randonColor;
 
-//   //** */ e.stopPropagation(); stop bubbling, parent elements wont be reached
+//   //** e.stopPropagation(); stop bubbling, parent elements wont be reached
 // })
 
 // document.querySelector('.nav__links').addEventListener('click', e =>{
