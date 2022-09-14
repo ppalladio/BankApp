@@ -115,8 +115,10 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 
-tabsContent.addEventListener('click', (e) => {
-    const clicked = e.target.closet('.operations__tab');
+tabsContainer.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.operations__tab');
+    console.log(e.target);
+    console.log(clicked);
     //** guard clause */
     if (!clicked) return;
     tabs.forEach((tab) => tab.classList.remove('operations__tab--active'));
@@ -126,9 +128,49 @@ tabsContent.addEventListener('click', (e) => {
     );
 
     document
-        .querySelector(`.operations__content--${clicked.data.tab}`)
+        .querySelector(`.operations__content--${clicked.dataset.tab}`)
         .classList.add('operations__content--active');
 });
+
+//**- menu fade  */
+//*!
+const nav = document.querySelector('.nav');
+const mouseover = (e) => {
+    if (e.target.classList.contains('nav__link')) {
+        const link = e.target;
+        const sliblings = link.closest('.nav').querySelectorAll('.nav__link');
+        const logo = link.closest('.nav').querySelector('img');
+        sliblings.forEach((el) => {
+            if (el !== link) {
+                el.style.opacity = this; //** this keyword is opacity */
+            }
+        });
+        logo.style.opacity = this;
+    }
+};
+
+nav.addEventListener('mouseover', mouseover.bind(0.5));
+
+nav.addEventListener('mouseout', mouseover.bind(1));
+
+
+//- sticky nav
+
+window.addEventListener('scroll', (_e) =>{
+    
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 //**+ event propagation */
 // const randomInt = (min, max) =>
