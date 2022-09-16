@@ -13,4 +13,5 @@ Learning advanced Dom manipulation by doing.
 * insertAdjacentHTML()
 * IntersectionObserver()
 * getBoundingClientRect()
-** events: mouseover mouseout keydown load
+* Events: 
+  * mouseover mouseout keydown load
