@@ -8,4 +8,9 @@ Learning advanced Dom manipulation by doing.
 * Lazy loading
 * Event propagation
 * * bubbling and capturing
-* 
+
+* scrollIntoView()
+* insertAdjacentHTML()
+* IntersectionObserver()
+* getBoundingClientRect()
+** events: mouseover mouseout keydown load
