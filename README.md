@@ -7,7 +7,7 @@ Learning advanced Dom manipulation by doing.
 * DOM traversing
 * Lazy loading
 * Event propagation
-* * bubbling and capturing
+  * bubbling and capturing
 
 * scrollIntoView()
 * insertAdjacentHTML()
